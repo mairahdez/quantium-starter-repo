@@ -12,8 +12,12 @@ for filename in all_files:
 
 df_combined = pd.concat(li, axis=0, ignore_index=True)
 
-# 3. filter the DataFrame to only include rows where the product is 'Pink Morsel'
-df_pink = df_combined[df_combined['product'] == 'Pink Morsel'].copy()
+# 3. Flexible filter: remove spaces, convert to lowercase, and then check
+# This cleans the 'product' column before comparing
+df_combined['product'] = df_combined['product'].str.strip().str.lower()
+
+# Now filter for 'pink morsel' (in lowercase)
+df_pink = df_combined[df_combined['product'] == 'pink morsel'].copy()
 
 # 4. process: create a new column 'sales' by multiplying 'quantity' and 'price'
 # remove the dollar sign and commas from the 'price' column and convert it to float
